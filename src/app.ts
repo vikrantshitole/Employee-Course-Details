@@ -1,8 +1,15 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+import connectDB from './database';
+import dotenv from 'dotenv'
+import bodyParser from 'body-parser';
+import router from './routes';
+dotenv.config()
+connectDB()
 const app = express();
-const port = 3000;
-
-app.get('/', (req, res) => {
+const port = process.env.PORT || 3000;
+app.use(bodyParser.json());
+app.use(router)
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
